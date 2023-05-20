@@ -23,7 +23,7 @@ def main() -> None:
     loss_activation = ActivationSoftmaxCategoricalCrossentropyLoss()
 
     # Create optimizer
-    optimizer = OptimizerSGD()
+    optimizer = OptimizerSGD(decay=1e-3)
 
     # Train in loop
     for epoch in range(10001):
@@ -43,7 +43,8 @@ def main() -> None:
         if not epoch % 100:
             print(f'epoch: {epoch}, ' +
                   f'acc: {accuracy:.3f}, ' +
-                  f'loss: {loss:.3f}')
+                  f'loss: {loss:.3f}, ' +
+                  f'lr: {optimizer.current_learning_rate}')
 
         # Backward pass
         loss_activation.backward(loss_activation.output, y)
@@ -52,8 +53,10 @@ def main() -> None:
         dense1.backward(activation1.dinputs)
 
         # Update weights and biases
+        optimizer.pre_update_params()
         optimizer.update_params(dense1)
         optimizer.update_params(dense2)
+        optimizer.post_update_params()
 
 
 if __name__ == "__main__":
