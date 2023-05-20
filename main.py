@@ -1,21 +1,25 @@
+import matplotlib.pyplot as plt
 import numpy as np
 
-inputs = [[1, 2, 3, 2.5],
-          [2., 5., -1., 2],
-          [-1.5, 2.7, 3.3, -0.8]]
+import nnfs
+from nnfs.datasets import spiral_data
 
-weights = [[0.2, 0.8, -0.5, 1],
-           [0.5, -0.91, 0.26, -0.5],
-           [-0.26, -0.27, 0.17, 0.87]]
+nnfs.init()
 
-biases = [2, 3, 0.5]
 
-weights2 = [[0.1, -0.14, 0.5],
-            [-0.5, 0.12, -0.33],
-            [-0.44, 0.73, -0.13]]
-biases2 = [-1, 2, -0.5]
+class DenseLayer:
+    def __init__(self, n_inputs, n_neurons):
+        # Initialize weights (produces a Gaussian distribution with a mean of 0 and a variance of 1)
+        # multiply by 0.01 to generate numbers that are a couple of magnitudes smaller
+        self.weights = 0.01 * np.random.randn(n_inputs, n_neurons)
+        self.biases = np.zeros((1, n_neurons))
 
-layer1_outputs = np.dot(inputs, np.array(weights).T) + biases
-layer2_outputs = np.dot(layer1_outputs, np.array(weights2).T) + biases2
+    def forward(self, inputs):
+        self.output = np.dot(inputs, self.weights) + self.biases
 
-print(layer2_outputs)
+
+X, y = spiral_data(samples=100, classes=3)
+
+dense1 = DenseLayer(2, 3)
+dense1.forward(X)
+print(dense1.output[:5])
