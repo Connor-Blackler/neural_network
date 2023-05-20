@@ -3,7 +3,7 @@ import numpy as np
 from .helpers.loss_and_activate import ActivationSoftmaxCategoricalCrossentropyLoss
 from .helpers.activation import ActivationReLU
 from .helpers.layer import DenseLayer
-from .helpers.optimizer import OptimizerSGD
+from .helpers.optimizer import OptimizerSGD, OptimizerSGDMomentum
 
 import nnfs
 from nnfs.datasets import spiral_data
@@ -23,11 +23,10 @@ def main() -> None:
     loss_activation = ActivationSoftmaxCategoricalCrossentropyLoss()
 
     # Create optimizer
-    optimizer = OptimizerSGD(decay=1e-3)
+    optimizer = OptimizerSGDMomentum(decay=1e-3, momentum=0.9)
 
     # Train in loop
     for epoch in range(10001):
-
         dense1.forward(X)
         activation1.forward(dense1.output)
         dense2.forward(activation1.output)
