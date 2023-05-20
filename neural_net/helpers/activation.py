@@ -28,6 +28,8 @@ class ActivationSoftmax(Activation):
     """
 
     def forward(self, inputs):
+        self.inputs = inputs
+
         # Get unnormalized probabilities
         exp_values = np.exp(inputs - np.max(inputs, axis=1,
                                             keepdims=True))
@@ -39,6 +41,7 @@ class ActivationSoftmax(Activation):
 
     def backward(self, dvalues):
         self.dinputs = np.empty_like(dvalues)
+
         for index, (single_output, single_dvalues) in \
                 enumerate(zip(self.output, dvalues)):
 

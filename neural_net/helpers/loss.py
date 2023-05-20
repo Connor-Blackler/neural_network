@@ -22,7 +22,7 @@ class Loss(ABC):
         ...
 
 
-class CategoricalCrossentropy(Loss):
+class CategoricalCrossentropyLoss(Loss):
     def forward(self, y_pred, y_true):
         # Number of samples in a batch
         samples = len(y_pred)
