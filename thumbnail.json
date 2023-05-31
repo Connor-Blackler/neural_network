@@ -2,6 +2,6 @@
 	"title": "Neural Network from Scratch",
 	"image": "https://static.thenounproject.com/png/2424482-200.png",
 	"description": "A Neural Network project from Scratch primarily focused at learning the logic from first principle",
-	"language": ["Python",],
-	"language_bg": ["#3572A5",],
+	"language": ["Python"],
+	"language_bg": ["#3572A5"],
 }
